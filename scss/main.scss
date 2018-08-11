@@ -1,0 +1,362 @@
+/* It is better to divide the code onto files,
+  but as there is only 300 lines it is unnecessary
+*/
+
+/* Vars */
+$main-gray: #41424E;
+$main-gradient-from: #fa9839;
+$main-gradient-to: #ffd06d;
+$main-light-gray: #999aa9;
+
+/* General */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: proximaBold, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.screen {
+  height: 100vh;
+  width: 100%;
+}
+
+path:not(#morph) {
+  display: none;
+}
+
+/*Typography*/
+@font-face {
+  font-family: proximaBold;
+  src: url("../fonts/proxima/ProximaNova-Bold.ttf");
+}
+
+@font-face {
+  font-family: proximaRegular;
+  src: url("../fonts/proxima/ProximaNova-Regular.ttf");
+}
+
+@font-face {
+  font-family: proximaItalic;
+  src: url("../fonts/proxima/ProximaNova-Italic.ttf");
+}
+
+/*Animations */
+@keyframes svgDrop {
+  0% {
+    transform: translateY(-60%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1);
+  }
+  65% {
+    transform: translateY(0%) scale(1);
+  }
+  100% {
+    transform: translateY(0%) scale(1.7);
+  }
+}
+
+@keyframes img {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-10%);
+  }
+}
+
+@keyframes overlayAnim {
+  0% {
+    transform: translateX(-110%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+/*Blocks*/
+.morph {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  min-height: 1080px;
+  min-width: 1920px;
+  z-index: 3;
+  &__svg {
+    animation-timing-function: linear;
+    animation: 1.7s svgDrop forwards;
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+  }
+
+  &-to-right {
+    transition: 1s all;
+    transition-delay: 1s;
+    left: 330px;
+  }
+
+  &__device-image {
+    position: relative;
+    top: 25%;
+    left: 500px;
+    opacity: 0;
+    animation: linear 0.5s img forwards;
+    animation-delay: 1s;
+  }
+}
+
+.top-nav {
+  opacity: 0;
+  transition: 0.2s all;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 50px 0 60px;
+  &__logo {
+    height: 37px;
+  }
+
+  &__btns {
+    display: flex;
+  }
+
+  &__btn {
+    transition: 0.3s all;
+    font-size: 16px;
+    color: $main-gray;
+    width: 160px;
+    height: 48px;
+    border: 1px solid $main-gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 5;
+    &:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 160px;
+      height: 48px;
+      z-index: -1;
+      background-color: $main-gray;
+      transition: 0.3s all;
+      transform: translate(-50%,-50%) scale(0);
+    }
+
+    &:hover {
+      color: #fff;
+      &:before {
+        transform: translate(-50%,-50%) scale(1);
+      }
+    }
+
+    &:first-child {
+      border: 0;
+    }
+  }
+}
+
+.side-nav {
+  position: fixed;
+  right: 45px;
+  top: 27%;
+  z-index: 10;
+  transform: translateX(150px);
+  &--show {
+    transition: 0.5s all;
+    transition-delay: 1.7s;
+    transform: translateX(0);
+  }
+
+  &__link {
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.5s all;
+    margin-top: 35px;
+    &:after {
+      display: block;
+      opacity: 0;
+      position: absolute;
+      left: -50px;
+      top: 80px;
+      transition: 0.5s all;
+    }
+    &:before {
+      position: absolute;
+      top: 40px;
+      left: 7px;
+      display: block;
+      content: ' ';
+      height: 0;
+      width: 2px;
+      background-color: #d8d8d8;
+      transition: 0.5s all;
+    }
+
+    @for $i from 1 through 4 {
+      &--0#{$i} {
+        &:after {
+          content: '0#{$i}';
+        }
+      }
+    }
+
+    &--active {
+      transition: 0.5s all;
+      margin-bottom: 250px;
+      &:after {
+        opacity: 1;
+        transform: rotate(-90deg);
+        font-size: 36px;
+      }
+      &:before {
+        height: 180px;
+      }
+    }
+  }
+}
+
+.header {
+  position: relative;
+  color: $main-gray;
+  padding-left: 160px;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  &__welcome-block {
+    overflow: hidden;
+    transform: translateY(70px);
+  }
+
+  &__descr {
+    font-family: proximaRegular, sans-serif;
+    color: $main-light-gray;
+    line-height: 30px;
+    margin-top: 20px;
+    font-size: 18px;
+    margin-bottom: 40px;
+    transform: translateX(-110%);
+  }
+
+  &__welcome-to {
+    font-size: 30px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    transform: translateX(-110%);
+  }
+
+  &__pasebase {
+    letter-spacing: 0.1em;
+    font-size: 90px;
+    text-transform: uppercase;
+    transform: translateX(-110%);
+    position: relative;
+    &:before {
+      position: absolute;
+      width: 100%;
+      height: 80%;
+      z-index: -1;
+      opacity: 0.5;
+      content: ' ';
+      display: block;
+      background: linear-gradient(to left, $main-gradient-from 0, $main-gradient-to 100%);
+    }
+  }
+
+  &__reg-now {
+    width: 240px;
+    height: 68px;
+    background-color: #f95079;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: translateX(-110%);
+    &:after {
+      content: ' ';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 240px;
+      height: 68px;
+      z-index: -1;
+      background-color: $main-gray;
+      transition: 0.3s all;
+      transform: translate(-50%,-50%) scale(0);
+    }
+    &:hover {
+      &:after {
+        transform: translate(-50%,-50%) scale(1);
+      }
+    }
+  }
+
+
+  &--show {
+    transition: 2.7s all;
+    transition-delay: 1s;
+    opacity: 1;
+    .header {
+      &__welcome-to {
+        transition: 0.5s all;
+        transition-delay: 1s;
+        transform: translateX(0);
+      }
+
+      &__pasebase {
+        transition: .5s all;
+        transition-delay: 1.2s;
+        transform: translateX(0);
+        &:before {
+          animation: 1s overlayAnim forwards;
+        }
+      }
+      &__descr {
+        transition: 0.5s all;
+        transition-delay: 1.4s;
+        transform: translateX(0);
+      }
+
+      &__reg-now {
+        transition: 0.5s all;
+        transition-delay: 1.6s;
+        transform: translateX(0);
+      }
+    }
+  }
+}
