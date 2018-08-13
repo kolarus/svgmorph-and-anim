@@ -17,7 +17,17 @@ a {
 
 .screen {
   height: 100vh;
-  width: 100%; }
+  width: 100%;
+  position: fixed;
+  left: 0; }
+  .screen--02 {
+    background-color: red; }
+  .screen--03 {
+    background-color: blue; }
+  .screen--04 {
+    background-color: green; }
+  .screen--hidden-bottom {
+    top: 100%; }
 
 path:not(#morph) {
   display: none; }
@@ -65,6 +75,8 @@ path:not(#morph) {
   top: 0;
   min-height: 1080px;
   min-width: 1920px;
+  max-height: 1080px;
+  max-width: 1920px;
   z-index: 3; }
   .morph__svg {
     animation-timing-function: linear;

@@ -59,21 +59,24 @@ const svgMorph = {
     const sideNav = document.querySelector('.side-nav');
     sideNav.classList.add('side-nav--show');
 
-    /*Delegated event handling on nav links click*/
-    const sideNavLinks = document.querySelectorAll('.side-nav__link');
-    sideNav.addEventListener('click', function (event) {
-      if(event.target.classList.contains('side-nav__link')) {
-        sideNavLinks.forEach(link => {
-          if (link.classList.contains('side-nav__link--active')) {
-            link.classList.remove('side-nav__link--active');
-          }
-        });
-        event.target.classList.add('side-nav__link--active');
-      }
-    });
-
   }
 };
 
-svgMorph.morphSvg();
+/*Delegated event handling on nav links click*/
+const sideNav = document.querySelector('.side-nav');
+const sideNavLinks = document.querySelectorAll('.side-nav__link');
 
+sideNav.addEventListener('click', function (event) {
+  if(event.target.classList.contains('side-nav__link')) {
+    sideNavLinks.forEach(link => {
+      if (link.classList.contains('side-nav__link--active')) {
+        link.classList.remove('side-nav__link--active');
+      }
+    });
+
+    event.target.classList.add('side-nav__link--active');
+  }
+
+});
+
+svgMorph.morphSvg();
