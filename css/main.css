@@ -72,7 +72,7 @@ path:not(#morph) {
   width: 100%;
   height: 100vh;
   left: 50%;
-  top: 50%;
+  top: 53%;
   transform: translate(-50%, -50%);
   min-height: 1080px;
   min-width: 1920px;
@@ -90,7 +90,7 @@ path:not(#morph) {
     transition: 1s all;
     transition-delay: 1s;
     /*left: 330px;*/
-    left: 70%; }
+    left: 69%; }
   .morph__device-image {
     position: relative;
     top: 25%;
